@@ -250,3 +250,106 @@ int main(void)
 	return (0);
 
 }
+/* simple_shell.c */
+
+#define _GNU_SOURCE
+
+#include <stdio.h>
+
+#include <unistd.h>
+
+/*
+
+ * main - print the addresses of env and environ respectively
+
+ * @ac: arg count
+
+ * @av: arg vector
+
+ * @env: pointer to environment
+
+ *
+
+ * Return: 0.
+
+ */
+
+int main(int ac __attribute__ ((unused)), char **av __attribute__ ((unused)), char **env)
+
+{
+
+	printf("&env: %p\n", &env);	printf("&environ: %p\n", &environ);
+
+	return (0);
+
+}
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <unistd.h>
+
+#include <sys/types.h>
+
+#include <sys/wait.h>
+
+/**
+
+ * main - print nos. 1 - 5 and 6 - 10 in child and parent processes
+
+ * respectively
+
+ *
+
+ * Return: 0.
+
+ */
+
+int main(void)
+
+{
+
+	int pid = fork();
+
+	int n;
+
+	if (pid < 0)
+
+		perror("Error");
+
+	if (pid == 0)
+
+	{
+
+		n = 1;
+
+	}
+
+	else
+
+	{
+
+		n = 6;
+
+		wait(NULL);
+
+	}
+
+	for (int i = n; i < n + 5; i++)
+
+	{
+
+		printf(" %d", i);
+
+		if (i == 10)
+
+			putchar(10);
+
+		fflush(stdout);
+
+	}
+
+	return (0);
+
+}
